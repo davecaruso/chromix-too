@@ -12,6 +12,10 @@ handleRequest = (sock) -> ({data}) ->
   else if path == "ping"
     sock.send JSON.stringify extend request, response: ["ok"], error: false
 
+  else if path == "inject"
+    chrome.tabs.getSelected null, (tab) ->
+      chrome.tabs.executeScript tab.id, {code: request.code}, (response) ->
+        sock.send JSON.stringify extend request, response: [JSON.stringify(response)], error: false
   else
     obj = window
     for property in path.split "."
@@ -44,4 +48,3 @@ tryConnect = ->
   console.log "connected: #{url}"
 
 tryConnect()
-

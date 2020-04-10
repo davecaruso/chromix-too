@@ -1,5 +1,5 @@
 
-src = utils.coffee extension/utils.coffee chromix-too.coffee server.coffee client.coffee
+src = utils.coffee extension/utils.coffee chromix-too.coffee server.coffee client.coffee extension/background.coffee
 js  = $(src:.coffee=.js)
 
 build: $(js)

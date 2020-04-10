@@ -1,5 +1,6 @@
 `#!/usr/bin/env node
 `
+util = require "util"
 utils = require "./utils"
 utils.extend global, utils
 
@@ -119,6 +120,13 @@ switch commandName
       else
         process.exit 1
 
+  when "inject"
+    chromix "inject", { code: process.argv[3] }, (response) ->
+      if response == null
+        console.log "Failed, could not inject to active tab."
+        process.exit 1
+      else
+        console.log util.inspect(JSON.parse(response)[0], colors: true, depth: Infinity)
   when "file"
     for arg in commandArgs
       url = if arg.indexOf("file://") == 0 then arg else "file://#{require("path").resolve arg}"
