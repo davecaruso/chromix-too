@@ -126,7 +126,7 @@ switch commandName
         console.log "Failed, could not inject to active tab."
         process.exit 1
       else
-        console.log util.inspect(JSON.parse(response)[0], colors: true, depth: Infinity)
+        console.log util.inspect(JSON.parse(response)[0], depth: Infinity)
   when "file"
     for arg in commandArgs
       url = if arg.indexOf("file://") == 0 then arg else "file://#{require("path").resolve arg}"
